@@ -1,0 +1,181 @@
+{
+    "trucks": [
+        {
+            "id": 1,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 2,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 3,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 4,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 5,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 6,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 7,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 8,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 9,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 10,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        }
+    ],
+    "stagesStructure": [
+        {
+            "level": 1,
+            "stages": [
+                {
+                    "id": 1,
+                    "type": "ROAD",
+                    "name": "Camino a playon",
+                    "delayExpectation": 2,
+                    "delayVariance": 2
+                }
+            ]
+        },
+        {
+            "level": 2,
+            "stages": [
+                {
+                    "id": 2,
+                    "type": "QUEUE",
+                    "name": "Cola balanzas",
+                    "queueLimit": 3   
+                }
+            ]       
+        },
+        {
+            "level": 3,
+            "stages": [
+                {
+                    "id": 3,
+                    "type": "SERVER",
+                    "name": "Balanza 1",
+                    "delayExpectation": 1,
+                    "delayVariance": 3
+                },
+                {
+                    "id": 4,
+                    "type": "SERVER",
+                    "name": "Balanza 2",
+                    "level": 3,
+                    "delayExpectation": 1,
+                    "delayVariance": 3
+                },
+                {
+                    "id": 5,
+                    "type": "SERVER",
+                    "name": "Balanza 3",
+                    "level": 3,
+                    "delayExpectation": 1,
+                    "delayVariance": 3
+                }
+            ]
+        },
+        {
+            "level": 4,
+            "stages": [
+                {
+                    "id": 6,
+                    "type": "ROAD",
+                    "name": "Camino a hidraulicas",
+                    "delayExpectation": 2,
+                    "delayVariance": 2   
+                }
+            ]       
+        },
+        {
+            "level": 5,
+            "stages": [
+                {
+                    "id": 7,
+                    "type": "QUEUE",
+                    "name": "Cola hidraulicas 1",
+                    "queueLimit": 8   
+                },
+                {
+                    "id": 8,
+                    "type": "QUEUE",
+                    "name": "Cola hidraulicas 2",
+                    "queueLimit": 8   
+                },
+                {
+                    "id": 9,
+                    "type": "QUEUE",
+                    "name": "Cola hidraulicas 3",
+                    "queueLimit": 8   
+                }
+            ]            
+        },
+        {
+            "level": 6,
+            "stages": [
+                {
+                    "id": 10,
+                    "type": "SERVER",
+                    "name": "Hidraulica 1",
+                    "level": 5,
+                    "delayExpectation": 1,
+                    "delayVariance": 3
+                },
+                {
+                    "id": 11,
+                    "type": "SERVER",
+                    "name": "Hidraulica 2",
+                    "level": 5,
+                    "delayExpectation": 1,
+                    "delayVariance": 3
+                },
+                {
+                    "id": 12,
+                    "type": "SERVER",
+                    "name": "Hidraulica 3",
+                    "level": 5,
+                    "delayExpectation": 1,
+                    "delayVariance": 3
+                }
+            ] 
+        }    
+    ]
+}
