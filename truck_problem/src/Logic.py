@@ -10,6 +10,7 @@ class SimulationLogic():
         self.scenarioLevelQuantity = len(self.stagesByLevelDict)
         self.finishedTrucksDict = {}
         self.epochs = 0
+        self.history = {}
 
     def sendTruckToStage(self, truck, stageId):
         self.stagesByIdDict.get(truck.stageId).dispatchTruck(truck)
@@ -34,11 +35,15 @@ class SimulationLogic():
             self.doActionTruck(actionKey, actionDict[actionKey])
 
     def runOneEpoch(self, actionDict):
+        self.saveHistory(actionDict)
         self.doActions(actionDict)
         for stage in self.stagesByIdDict.values():
             stage.runOneEpoch()
 
         self.epochs += 1
+
+    def saveHistory(self, actionDict):
+        self.history[self.epochs] = actionDict
 
     def getAllPosibleActions(self):
         actions = {}

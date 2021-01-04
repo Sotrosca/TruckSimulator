@@ -3,6 +3,9 @@ from Logic import SimulationLogic
 import json
 import pathlib
 
+INITIAL_SCENARIO_FILE_PATH = 'init/simulationInitialScenario.json'
+SHORT_INITIAL_SCENARIO_FILE_PATH = 'init/shortInitialScenario.json'
+
 def loadInitParametersGame(initialParametersJSONFile):
     with open(initialParametersJSONFile, 'r') as parametersFile:
         initialParameters = json.load(parametersFile)
@@ -35,7 +38,7 @@ def initTrucks(initialParameters, stagesById):
     return trucksDict
 
 def initSimulation():
-    initialParameters = loadInitParametersGame('init/simulationInitialScenario.json')
+    initialParameters = loadInitParametersGame(SHORT_INITIAL_SCENARIO_FILE_PATH)
     initialScenario = initScenario(initialParameters)
     initialTrucks = initTrucks(initialParameters, initialScenario['stagesByIdDict'])
     return SimulationLogic(initialTrucks, initialScenario)

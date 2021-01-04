@@ -1,5 +1,5 @@
 from Model import Truck, Server
-from Initializer import initSimulation, loadInitParametersGame
+from Initializer import initSimulation
 from RandomPlayer import RandomPlayer
 import random
 

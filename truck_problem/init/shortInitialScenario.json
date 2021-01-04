@@ -177,58 +177,6 @@
                     "delayVariance": 3
                 }
             ] 
-        },
-        {
-            "level": 7,
-            "stages": [
-                {
-                    "id": 13,
-                    "type": "ROAD",
-                    "name": "Camino a balanzas final",
-                    "delayExpectation": 2,
-                    "delayVariance": 2   
-                }
-            ]       
-        },
-        {
-            "level": 8,
-            "stages": [
-                {
-                    "id": 14,
-                    "type": "QUEUE",
-                    "name": "Cola balanzas finale",
-                    "queueLimit": 3   
-                }
-            ]       
-        },
-        {
-            "level": 9,
-            "stages": [
-                {
-                    "id": 15,
-                    "type": "SERVER",
-                    "name": "Balanza final 1",
-                    "level": 9,
-                    "delayExpectation": 1,
-                    "delayVariance": 3
-                },
-                {
-                    "id": 16,
-                    "type": "SERVER",
-                    "name": "Balanza final 2",
-                    "level": 9,
-                    "delayExpectation": 1,
-                    "delayVariance": 3
-                },
-                {
-                    "id": 17,
-                    "type": "SERVER",
-                    "name": "Balanza final 3",
-                    "level": 9,
-                    "delayExpectation": 1,
-                    "delayVariance": 3
-                }
-            ]
         }
     ]
 }

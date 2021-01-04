@@ -12,7 +12,7 @@ class Truck():
         self.timeToFinishServerService = 0
 
     def __str__(self):
-        return "id: " + str(self.id) + " - " + str(self.stage.name)
+        return "Camion " + str(self.id)
 
     def goToRoad(self, road):
         self.stage = stage
@@ -55,7 +55,7 @@ class Road():
         self.trucksTimeToDispatchDict = {}
 
     def __str__(self):
-        return str(self.id) + " - " + self.name + " - " + str(self.truckDict)
+        return str(self.id) + ": " +  self.name
 
     def addTruck(self, truck):
         self.truckDict[truck.id] = truck
@@ -96,7 +96,7 @@ class Queue():
         self.type = "QUEUE"
 
     def __str__(self):
-        return str(self.id) + " - " + self.name + " - " + str(self.truckList)
+        return str(self.id) + ": " +  self.name
 
     def canReceiveTruck(self, truck):
         return self.trucksOnQueueQuantity < self.queueLimit
@@ -137,7 +137,7 @@ class Server():
         self.type = "SERVER"
 
     def __str__(self):
-        return str(self.id) + " - " + self.name + " - " + str(self.truckOnService)
+        return str(self.id) + ": " +  self.name
 
     def simulateTimeToFinishService(self):
         return np.random.normal(self.delayExpectation, self.delayVariance)
@@ -185,7 +185,7 @@ class Start():
         self.type = "START"
 
     def __str__(self):
-        return str(self.id) + " - " + self.name + " - " + str(self.truckDict)
+        return str(self.id) + ": " +  self.name
 
     def addTruck(self, truck):
         self.truckDict[truck.id] = truck
