@@ -5,6 +5,8 @@ import pathlib
 
 INITIAL_SCENARIO_FILE_PATH = 'init/simulationInitialScenario.json'
 SHORT_INITIAL_SCENARIO_FILE_PATH = 'init/shortInitialScenario.json'
+TRES_COLAS_INITIAL_SCENARIO_FILE_PATH = 'init/tresColasScenario.json'
+
 
 def loadInitParametersGame(initialParametersJSONFile):
     with open(initialParametersJSONFile, 'r') as parametersFile:

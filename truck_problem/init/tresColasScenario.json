@@ -1,0 +1,134 @@
+{
+    "trucks": [
+        {
+            "id": 1,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 2,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 3,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 4,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 5,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 6,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 7,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 8,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 9,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        },
+        {
+            "id": 10,
+            "stageLevel": 0,
+            "stageId": 0,
+            "type": "SOJA"
+        }
+    ],
+    "stagesStructure": [
+        {
+            "level": 1,
+            "stages": [
+                {
+                    "id": 1,
+                    "type": "QUEUE",
+                    "name": "Cola hidraulicas 1",
+                    "queueLimit": 8   
+                },
+                {
+                    "id": 2,
+                    "type": "QUEUE",
+                    "name": "Cola hidraulicas 2",
+                    "queueLimit": 8   
+                },
+                {
+                    "id": 3,
+                    "type": "QUEUE",
+                    "name": "Cola hidraulicas 3",
+                    "queueLimit": 8   
+                }
+            ]            
+        },
+        {
+            "level": 2,
+            "stages": [
+                {
+                    "id": 4,
+                    "type": "SERVER",
+                    "name": "Hidraulica 1",
+                    "level": 2,
+                    "delayExpectation": 1,
+                    "delayVariance": 3
+                },
+                {
+                    "id": 5,
+                    "type": "SERVER",
+                    "name": "Hidraulica 2",
+                    "level": 2,
+                    "delayExpectation": 1,
+                    "delayVariance": 3
+                },
+                {
+                    "id": 6,
+                    "type": "SERVER",
+                    "name": "Hidraulica 3",
+                    "level": 2,
+                    "delayExpectation": 1,
+                    "delayVariance": 3
+                },
+                {
+                    "id": 7,
+                    "type": "SERVER",
+                    "name": "Hidraulica 4",
+                    "level": 2,
+                    "delayExpectation": 1,
+                    "delayVariance": 3
+                },
+                {
+                    "id": 8,
+                    "type": "SERVER",
+                    "name": "Hidraulica 5",
+                    "level": 2,
+                    "delayExpectation": 1,
+                    "delayVariance": 3
+                }
+            ] 
+        }
+    ]
+}
