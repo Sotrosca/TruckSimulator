@@ -17,7 +17,7 @@ class RandomPlayer():
 
     def runSimulation(self):
         self.logSimulationCopyState([], [])
-        while (not self.simulationCopy.isSimulationEnd()) and self.simulationCopy.epochs < 10:
+        while (not self.simulationCopy.isSimulationEnd()) and self.simulationCopy.epochs < 30:
             possibleActions = self.simulationCopy.getAllPosibleActions()
             actions = self.chooseActions(possibleActions)
             self.simulateOneEpoch(actions)

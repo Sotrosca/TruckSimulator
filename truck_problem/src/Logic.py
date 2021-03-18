@@ -68,8 +68,8 @@ class SimulationLogic():
         return len(self.trucksDict) == 0
 
 class Action():
-    def __init__(self, type, stageId, truck):
-        self.type = type
+    def __init__(self, actionType, stageId, truck):
+        self.type = actionType
         self.stageId = stageId
         self.truck = truck
 
