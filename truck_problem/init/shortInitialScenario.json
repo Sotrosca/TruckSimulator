@@ -23,42 +23,6 @@
             "stageLevel": 0,
             "stageId": 0,
             "type": "SOJA"
-        },
-        {
-            "id": 5,
-            "stageLevel": 0,
-            "stageId": 0,
-            "type": "SOJA"
-        },
-        {
-            "id": 6,
-            "stageLevel": 0,
-            "stageId": 0,
-            "type": "SOJA"
-        },
-        {
-            "id": 7,
-            "stageLevel": 0,
-            "stageId": 0,
-            "type": "SOJA"
-        },
-        {
-            "id": 8,
-            "stageLevel": 0,
-            "stageId": 0,
-            "type": "SOJA"
-        },
-        {
-            "id": 9,
-            "stageLevel": 0,
-            "stageId": 0,
-            "type": "SOJA"
-        },
-        {
-            "id": 10,
-            "stageLevel": 0,
-            "stageId": 0,
-            "type": "SOJA"
         }
     ],
     "stagesStructure": [

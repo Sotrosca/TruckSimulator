@@ -3,9 +3,9 @@ from Logic import SimulationLogic
 import json
 import pathlib
 
-INITIAL_SCENARIO_FILE_PATH = 'init/simulationInitialScenario.json'
-SHORT_INITIAL_SCENARIO_FILE_PATH = 'init/shortInitialScenario.json'
-TRES_COLAS_INITIAL_SCENARIO_FILE_PATH = 'init/tresColasScenario.json'
+INITIAL_SCENARIO_FILE_PATH = 'C:/Users/fserna/Documents/42/Personal/Desarrollo_Software/Proyectos Personales/TruckSimulator/truck_problem/init/simulationInitialScenario.json'
+SHORT_INITIAL_SCENARIO_FILE_PATH = 'C:/Users/fserna/Documents/42/Personal/Desarrollo_Software/Proyectos Personales/TruckSimulator/truck_problem/init/shortInitialScenario.json'
+TRES_COLAS_INITIAL_SCENARIO_FILE_PATH = 'C:/Users/fserna/Documents/42/Personal/Desarrollo_Software/Proyectos Personales/TruckSimulator/truck_problem/init/tresColasScenario.json'
 
 
 def loadInitParametersGame(initialParametersJSONFile):

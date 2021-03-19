@@ -1,27 +1,11 @@
-from Model import Truck, Server
 from Initializer import initSimulation
-from MontecarloAgent import MontecarloPlayer, selectionFunction, Node
-import random
+from MontecarloAgent import MontecarloPlayer
+from Functions import selectionFunction, retropropagationFunction, movementChoiceFunction, expansionFunction, simulationFunction
 
-ids = iter(range(100))
+simulation = initSimulation()
 
-tree = Node(None, [], None, None, int(ids.__next__()))
+player = MontecarloPlayer(simulation, selectionFunction, expansionFunction, retropropagationFunction, simulationFunction, movementChoiceFunction)
 
-tree.visits = 1
+bestMove = player.getBestMove()
 
-for i in range(3):
-    child = Node(tree, [], None, None, int(ids.__next__()))
-    child.value = (i + 100)
-    child.visits = (i + 1) ** 2
-    tree.childs.append(child)
-
-
-for j, _child in enumerate(tree.childs):
-    for k in range(4):
-        child = Node(tree, [], None, None, int(ids.__next__()))
-        child.value = (j + 1 + k)
-        child.visits = (j + 1 + k) ** 0.5
-        _child.childs.append(child)
-
-
-print(str(selectionFunction(tree)))
+print(bestMove)

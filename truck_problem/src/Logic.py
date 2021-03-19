@@ -45,7 +45,7 @@ class SimulationLogic():
     def saveHistory(self, actionDict):
         self.history[self.epochs] = actionDict
 
-    def getAllPosibleActions(self):
+    def getAllPosibleActionsByTruck(self):
         actions = {}
         for stage in self.stagesByIdDict.values():
             stageTrucksDict = stage.getTrucksEnabledToDispatch()

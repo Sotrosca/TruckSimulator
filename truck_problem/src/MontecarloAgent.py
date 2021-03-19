@@ -1,11 +1,12 @@
-import random
 import copy
-import numpy as np
 
 class MontecarloPlayer():
+
     def __init__(self, originalSimulation, selectionFunction, expansionFunction, retropropagationFunction, simulationFunction, movementChoiceFunction):
+        self.idsNodes = iter(range(10000))
         self.originalSimulation = originalSimulation
-        self.actionTree = Node(None, self.initTreeNodes(), None, None)
+        self.actionTree = Node(None, None, None, copy.deepcopy(self.originalSimulation), 0)
+        self.actionTree.childs = self.initTreeNodes()
         self.selectionFunction = selectionFunction
         self.expansionFunction = expansionFunction
         self.simulationFunction = simulationFunction
@@ -14,38 +15,67 @@ class MontecarloPlayer():
 
     def initTreeNodes(self):
         nodes = []
-        actions = self.originalSimulation.getAllPosibleActions()
-
+        actions = []
+        posibleActionsByTruck = self.originalSimulation.getAllPosibleActionsByTruck()
+        self.getActions(posibleActionsByTruck, {}, actions)
         for action in actions:
             simulationCopy = copy.deepcopy(self.originalSimulation)
-            simulationCopy.runOneEpoch(action)
-            nodes.append(Node(self.actionTree, [], action, simulationCopy))
+            copyAction = self.getCopyAction(action, simulationCopy)
+            simulationCopy.runOneEpoch(copyAction)
+            nodes.append(Node(self.actionTree, [], copyAction, simulationCopy, self.idsNodes.__next__()))
 
-        return actions
+        return nodes
+
+    def getCopyAction(self, action, simulationCopy):
+        copyAction = {}
+
+        for truckActionKey in action:
+            newAction = action.get(truckActionKey)
+            newAction.truck = simulationCopy.trucksDict.get(truckActionKey)
+            copyAction[truckActionKey] = newAction
+
+        return copyAction
 
     def getBestMove(self, epochs=100):
 
         for epoch in range(epochs):
-
+            print(epoch)
             actionNode = self.selectionFunction(self.actionTree)
-
-            if (self.expansionFunction):
-                newActions = actionNode.simulationCopy.getAllPosibleActions()
-
+            if (self.expansionFunction(actionNode)):
+                newActions = []
+                posibleActionsByTruck = actionNode.simulationCopy.getAllPosibleActionsByTruck()
+                self.getActions(posibleActionsByTruck, {}, newActions)
                 for action in newActions:
                     simulationCopy = copy.deepcopy(actionNode.simulationCopy)
-                    simulationCopy.runOneEpoch(action)
-                    actionNode.childs.append(Node(actionNode, [], action, simulationCopy))
+                    copyAction = self.getCopyAction(action, simulationCopy)
+                    simulationCopy.runOneEpoch(copyAction)
+                    actionNode.childs.append(Node(actionNode, [], copyAction, simulationCopy, self.idsNodes.__next__()))
 
                 actionNode = self.selectionFunction(actionNode)
-            
+
             simulationFinished = self.simulationFunction(actionNode)
 
-            self.retropropagationFunction(simulationFinished, self.actionTree)
-        
+            self.retropropagationFunction(simulationFinished, actionNode)
+
         bestMove = self.movementChoiceFunction(self.actionTree)
 
         return bestMove
+
+    def getActions(self, posibleActionsByTruckDict, actionDict, actionList):
+
+        if len(posibleActionsByTruckDict) == 0:
+            actionList.append(actionDict)
+
+        else:
+            posibleActionsByTruckDictAux = copy.deepcopy(posibleActionsByTruckDict)
+            possibleActionsByTruckKeys = list(posibleActionsByTruckDictAux.keys())
+            actionTruckKey = possibleActionsByTruckKeys[0]
+
+            for actionTruck in posibleActionsByTruckDictAux.pop(actionTruckKey):
+                actionTruckDict = copy.deepcopy(actionDict)
+                actionTruckDict[actionTruckKey] = actionTruck
+                getActions(posibleActionsByTruckDictAux, actionTruckDict, actionList)
+
 
 class Node():
     def __init__(self, parent, childs, action, simulationCopy, idNode):
@@ -72,34 +102,25 @@ class Node():
 
         return childsWithoutLove
 
+    def hasParent(self):
+        return self.parent != None
 
-def selectionFunction(treeNodes):
-    UCTConstant = 1
-    selectedNode = treeNodes
 
-    while selectedNode.hasChilds():
-        childsWithoutLove = selectedNode.getChildsWithoutVisits()
+def getActions(posibleActionsByTruckDict, actionDict, actionList):
 
-        if len(childsWithoutLove) > 0:
-            selectedNode = random.choice(childsWithoutLove)
-        
-        else:
-            
-            selectionValueUCT = 0
-            winnerNode = None
+    if len(posibleActionsByTruckDict) == 0:
+        actionList.append(actionDict)
 
-            for child in selectedNode.childs:
-                childSuccessRatio = child.value / child.visits
+    else:
+        posibleActionsByTruckDictAux = copy.deepcopy(posibleActionsByTruckDict)
+        possibleActionsByTruckKeys = list(posibleActionsByTruckDictAux.keys())
+        actionTruckKey = possibleActionsByTruckKeys[0]
 
-                logRatio = (np.log(selectedNode.visits) / child.visits) ** 0.5
+        for actionTruck in posibleActionsByTruckDictAux.pop(actionTruckKey):
+            actionTruckDict = copy.deepcopy(actionDict)
+            actionTruckDict[actionTruckKey] = actionTruck
+            getActions(posibleActionsByTruckDictAux, actionTruckDict, actionList)
 
-                childValueUCT = childSuccessRatio + UCTConstant * logRatio
 
-                if childValueUCT > selectionValueUCT:
-                    selectionValueUCT = childValueUCT
-                    winnerNode = child
 
-            selectedNode = winnerNode
-
-    return selectedNode
 
