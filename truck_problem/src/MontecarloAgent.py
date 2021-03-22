@@ -3,7 +3,7 @@ import copy
 class MontecarloPlayer():
 
     def __init__(self, originalSimulation, selectionFunction, expansionFunction, retropropagationFunction, simulationFunction, movementChoiceFunction):
-        self.idsNodes = iter(range(10000))
+        self.idsNodes = iter(range(100000))
         self.originalSimulation = originalSimulation
         self.actionTree = Node(None, None, None, copy.deepcopy(self.originalSimulation), 0)
         self.actionTree.childs = self.initTreeNodes()
@@ -26,6 +26,12 @@ class MontecarloPlayer():
 
         return nodes
 
+    def getChildById(self, idChild):
+        for child in self.actionTree.childs:
+            if child.id == idChild:
+                return child
+        return None
+
     def getCopyAction(self, action, simulationCopy):
         copyAction = {}
 
@@ -36,10 +42,9 @@ class MontecarloPlayer():
 
         return copyAction
 
-    def getBestMove(self, epochs=100):
+    def getBestMove(self, epochs=1000):
 
         for epoch in range(epochs):
-            print(epoch)
             actionNode = self.selectionFunction(self.actionTree)
             if (self.expansionFunction(actionNode)):
                 newActions = []
@@ -55,7 +60,7 @@ class MontecarloPlayer():
 
             simulationFinished = self.simulationFunction(actionNode)
 
-            self.retropropagationFunction(simulationFinished, actionNode)
+            self.retropropagationFunction(self.originalSimulation, simulationFinished, actionNode)
 
         bestMove = self.movementChoiceFunction(self.actionTree)
 

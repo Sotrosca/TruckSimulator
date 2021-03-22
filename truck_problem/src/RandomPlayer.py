@@ -17,7 +17,7 @@ class RandomPlayer():
 
     def runSimulation(self):
         self.logSimulationCopyState([], [])
-        while (not self.simulationCopy.isSimulationEnd()) and self.simulationCopy.epochs < 30:
+        while (not self.simulationCopy.isSimulationEnd()) and self.simulationCopy.epochs < 60:
             possibleActions = self.simulationCopy.getAllPosibleActionsByTruck()
             actions = self.chooseActions(possibleActions)
             self.simulateOneEpoch(actions)
@@ -37,12 +37,13 @@ class RandomPlayer():
 
         print("Acciones a realizar: ")
         for key in possibleActions:
-            if actions[key].type == "GO":
-                print(" - Enviar camion numero " + str(key) + " a '" + str(actions[key].truck.stage.name) + "'")
+            truck = self.simulationCopy.trucksDict.get(actions.get(key).truckId)
+            if actions.get(key).type == "GO":
+                print(" - Enviar camion numero " + str(key) + " a '" + str(truck.stage.name) + "'")
             elif actions[key].type == "FINISH":
                 print(" - Finalizar recorrido del camion numero " + str(key))
             elif actions[key].type == "DO_NOTHING":
-                print(" - Camion numero " + str(key) + " dejado en espera en '" + str(actions[key].truck.stage.name) + "'")
+                print(" - Camion numero " + str(key) + " dejado en espera en '" + str(truck.stage.name) + "'")
 
         print("------------------")
 
@@ -68,8 +69,7 @@ class RandomPlayer():
         print("Camiones finalizados: ")
         for truck in self.simulationCopy.finishedTrucksDict:
             print("FINALIZO: " + str(truck))
-    
+
         print()
         print("******************")
         print()
-        

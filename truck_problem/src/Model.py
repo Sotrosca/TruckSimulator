@@ -1,9 +1,9 @@
 import numpy as np
 
 class Truck():
-    def __init__(self, id, type, stage):
-        self.id = id
-        self.type = type
+    def __init__(self, truckId, truckType, stage):
+        self.id = truckId
+        self.type = truckType
         self.stageType = stage.type # ROAD, QUEUE, SERVER, FINISH, START
         self.stageLevel = stage.level
         self.stageId = stage.id
@@ -66,6 +66,7 @@ class Road():
         self.truckDict.pop(truck.id)
         self.trucksTimeOnRoadDict.pop(truck.id)
         self.trucksTimeToDispatchDict.pop(truck.id)
+        return truck.id
 
     def simulateTimeToArrive(self):
         return np.random.normal(self.delayExpectation, self.delayVariance)
@@ -107,7 +108,8 @@ class Queue():
 
     def dispatchTruck(self, truck):
         self.trucksOnQueueQuantity -= 1
-        return self.truckList.pop(0)
+        truck = self.truckList.pop(0)
+        return truck.id
 
     def isEmpty(self):
         return self.trucksOnQueueQuantity == 0
@@ -115,7 +117,7 @@ class Queue():
     def getTrucksEnabledToDispatch(self):
         if self.trucksOnQueueQuantity == 0:
             return {}
-        
+
         truckToDispatch = self.truckList[0]
 
         return {truckToDispatch.id: truckToDispatch}
@@ -135,6 +137,7 @@ class Server():
         self.timeToFinishService = self.simulateTimeToFinishService()
         self.truckOnService = None
         self.type = "SERVER"
+        self.serverQueue = []
 
     def __str__(self):
         return str(self.id) + ": " +  self.name
@@ -153,14 +156,19 @@ class Server():
         return self.timeOnService >= self.timeToFinishService
 
     def dispatchTruck(self, truck):
-        truck = self.truckOnService
+        truckId = self.truckOnService.id
         self.truckOnService = None
         self.timeOnService = 0
         self.timeToFinishService = self.simulateTimeToFinishService()
-        return truck
+        if len(self.serverQueue) > 0:
+            self.truckOnService = self.serverQueue.pop(0)
+        return truckId
 
     def addTruck(self, truck):
-        self.truckOnService = truck
+        if self.canReceiveTruck(truck):
+            self.truckOnService = truck
+        else:
+            self.serverQueue.append(truck)
 
     def canReceiveTruck(self, truck):
         return self.truckOnService == None
@@ -168,9 +176,9 @@ class Server():
     def getTrucksEnabledToDispatch(self):
         if self.isEmpty() or not self.isServiceFinished():
             return {}
-        
+
         truckToDispatch = self.truckOnService
-        
+
         return {truckToDispatch.id: truckToDispatch}
 
     def isServiceFinished(self):
@@ -192,6 +200,7 @@ class Start():
 
     def dispatchTruck(self, truck):
         self.truckDict.pop(truck.id)
+        return truck.id
 
     def getTrucksEnabledToDispatch(self):
         return self.truckDict
