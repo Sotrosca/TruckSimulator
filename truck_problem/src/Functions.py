@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import copy
+import json
 
 def selectionFunction(treeNodes):
     UCTConstant = 1
@@ -13,7 +14,7 @@ def selectionFunction(treeNodes):
             selectedNode = random.choice(childsWithoutLove)
 
         else:
-            selectionValueUCT = 0
+            selectionValueUCT = -1
             winnerNode = None
 
             for child in selectedNode.childs:
@@ -39,9 +40,6 @@ def simulationFunction(actionNode):
     _simulationCopy = copy.deepcopy(actionNode.simulationCopy)
     while not _simulationCopy.isSimulationEnd():
 
-        if cant > 50:
-            print(cant)
-
         possibleActions = _simulationCopy.getAllPosibleActionsByTruck()
         actions = {}
         for key in possibleActions:
@@ -52,9 +50,10 @@ def simulationFunction(actionNode):
 
     return _simulationCopy
 
-def retropropagationFunction(simulationFinished, actionNode):
-    valueNode = simulationFinished.epochs
+def retropropagationFunction(originalSimulation, simulationFinished, actionNode):
+    valueNode = 1 if simulationFinished.epochs < (30 - originalSimulation.epochs) else 0
 
+#    valueNode = 1 / (simulationFinished.epochs - originalSimulation.epochs)
     actualNode = actionNode
 
     actualNode.visits += 1
@@ -66,7 +65,7 @@ def retropropagationFunction(simulationFinished, actionNode):
         actualNode.value += valueNode
 
 def movementChoiceFunction(treeNodes):
-    bestChildVisits = 0
+    bestChildVisits = -1
     bestChild = None
 
     for child in treeNodes.childs:
