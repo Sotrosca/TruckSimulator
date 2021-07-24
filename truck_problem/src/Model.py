@@ -168,6 +168,7 @@ class Server():
         if self.canReceiveTruck(truck):
             self.truckOnService = truck
         else:
+            self.timeToFinishService = self.timeToFinishService * 2
             self.serverQueue.append(truck)
 
     def canReceiveTruck(self, truck):

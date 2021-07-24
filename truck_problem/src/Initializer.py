@@ -40,7 +40,7 @@ def initTrucks(initialParameters, stagesById):
     return trucksDict
 
 def initSimulation():
-    initialParameters = loadInitParametersGame(SHORT_INITIAL_SCENARIO_FILE_PATH)
+    initialParameters = loadInitParametersGame(INITIAL_SCENARIO_FILE_PATH)
     initialScenario = initScenario(initialParameters)
     initialTrucks = initTrucks(initialParameters, initialScenario['stagesByIdDict'])
     return SimulationLogic(initialTrucks, initialScenario)

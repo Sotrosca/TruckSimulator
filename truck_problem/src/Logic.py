@@ -88,6 +88,26 @@ class SimulationLogic():
     def saveHistory(self, actionDict):
         self.history[self.epochs] = actionDict
 
+    def getAllPosibleActionsByTruckTypeOnStage(self):
+        actions = {}
+        for stage in self.stagesByIdDict.values():
+            stageTrucksDict = stage.getTrucksEnabledToDispatch()
+            truckQuantityByTypeDict = self.getTruckQuantityByTypeDict(stageTrucksDict)
+            actions[stage.id] = truckQuantityByTypeDict
+
+        return actions
+
+
+    def getTruckQuantityByTypeDict(truckList):
+        truckQuantityByTypeDict = {}
+        for truck in truckList:
+            if truckQuantityByTypeDict.has_key(truck.type):
+                truckQuantityByTypeDict[truck.type] += 1
+            else:
+                truckQuantityByTypeDict[truck.type] = 1
+
+        return truckQuantityByTypeDict
+
     def getAllPosibleActionsByTruck(self):
         actions = {}
         for stage in self.stagesByIdDict.values():
